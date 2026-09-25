@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixIt Campus</title>
+</head>
+<body>
+
+    <h1>FixIt Campus</h1>
+    <p>Campus Problem Reporting System</p>
+
+    <h2>Report a Problem</h2>
+
+    <form method="POST" action="/add">
+
+        <label>Problem Title:</label>
+        <input type="text" name="title" required>
+        <br><br>
+
+        <label>Category:</label>
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Equipment">Equipment</option>
+            <option value="Network">Network</option>
+            <option value="Classroom">Classroom</option>
+        </select>
+        <br><br>
+
+        <label>Location:</label>
+        <input type="text" name="location" required>
+        <br><br>
+
+        <label>Description:</label>
+        <textarea name="description" required></textarea>
+        <br><br>
+
+        <label>Priority:</label>
+        <select name="priority" required>
+            <option value="">Select Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Report Problem</button>
+
+    </form>
+
+    <h2>Search and Filter Problems</h2>
+
+    <form method="GET" action="/">
+
+        <label>Search:</label>
+        <input
+            type="text"
+            name="search"
+            placeholder="Search problems..."
+            value="{{ search }}"
+        >
+
+        <label>Category:</label>
+        <select name="category">
+            <option value="">All Categories</option>
+
+            <option value="Maintenance"
+                {% if selected_category == "Maintenance" %}selected{% endif %}>
+                Maintenance
+            </option>
+
+            <option value="Equipment"
+                {% if selected_category == "Equipment" %}selected{% endif %}>
+                Equipment
+            </option>
+
+            <option value="Network"
+                {% if selected_category == "Network" %}selected{% endif %}>
+                Network
+            </option>
+
+            <option value="Classroom"
+                {% if selected_category == "Classroom" %}selected{% endif %}>
+                Classroom
+            </option>
+        </select>
+
+        <label>Status:</label>
+        <select name="status">
+            <option value="">All Statuses</option>
+
+            <option value="Reported"
+                {% if selected_status == "Reported" %}selected{% endif %}>
+                Reported
+            </option>
+
+            <option value="In Progress"
+                {% if selected_status == "In Progress" %}selected{% endif %}>
+                In Progress
+            </option>
+
+            <option value="Resolved"
+                {% if selected_status == "Resolved" %}selected{% endif %}>
+                Resolved
+            </option>
+        </select>
+
+        <button type="submit">Apply Filter</button>
+
+    </form>
+
+    <h2>Reported Problems</h2>
+
+    {% if problems %}
+
+        {% for problem in problems %}
+
+            <div>
+                <h3>{{ problem.title }}</h3>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ problem.category }}
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ problem.location }}
+                </p>
+
+                <p>
+                    <strong>Description:</strong>
+                    {{ problem.description }}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong>
+                    {{ problem.priority }}
+                </p>
+
+                <p>
+                    <strong>Current Status:</strong>
+                    {{ problem.status }}
+                </p>
+
+                <form method="POST"
+                      action="/update-status/{{ loop.index0 }}">
+
+                    <label>Update Status:</label>
+
+                    <select name="status">
+
+                        <option value="Reported"
+                            {% if problem.status == "Reported" %}selected{% endif %}>
+                            Reported
+                        </option>
+
+                        <option value="In Progress"
+                            {% if problem.status == "In Progress" %}selected{% endif %}>
+                            In Progress
+                        </option>
+
+                        <option value="Resolved"
+                            {% if problem.status == "Resolved" %}selected{% endif %}>
+                            Resolved
+                        </option>
+
+                    </select>
+
+                    <button type="submit">Update Status</button>
+
+                </form>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No problems found.</p>
+
+    {% endif %}
+
+    <hr>
+
+    <footer>
+        <p>
+            Running Commit:
+            <strong>{{ commit_id }}</strong>
+        </p>
+    </footer>
+
+</body>
+</html>
