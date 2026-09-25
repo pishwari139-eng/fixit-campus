@@ -4,7 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FixIt Campus</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background: #f4f6f8;
+        }
+
+        h1 {
+            color: #1f4e79;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 9px 15px;
+            border: none;
+            border-radius: 4px;
+            background: #1f4e79;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #163a5c;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-card h3 {
+            color: #1f4e79;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 15px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
 </head>
+
 <body>
 
     <h1>FixIt Campus</h1>
@@ -33,6 +113,7 @@
         <br><br>
 
         <label>Description:</label>
+        <br>
         <textarea name="description" required></textarea>
         <br><br>
 
@@ -49,6 +130,7 @@
 
     </form>
 
+
     <h2>Search and Filter Problems</h2>
 
     <form method="GET" action="/">
@@ -63,6 +145,7 @@
 
         <label>Category:</label>
         <select name="category">
+
             <option value="">All Categories</option>
 
             <option value="Maintenance"
@@ -84,10 +167,14 @@
                 {% if selected_category == "Classroom" %}selected{% endif %}>
                 Classroom
             </option>
+
         </select>
 
+
         <label>Status:</label>
+
         <select name="status">
+
             <option value="">All Statuses</option>
 
             <option value="Reported"
@@ -104,11 +191,13 @@
                 {% if selected_status == "Resolved" %}selected{% endif %}>
                 Resolved
             </option>
+
         </select>
 
         <button type="submit">Apply Filter</button>
 
     </form>
+
 
     <h2>Reported Problems</h2>
 
@@ -116,7 +205,8 @@
 
         {% for problem in problems %}
 
-            <div>
+            <div class="problem-card">
+
                 <h3>{{ problem.title }}</h3>
 
                 <p>
@@ -143,6 +233,7 @@
                     <strong>Current Status:</strong>
                     {{ problem.status }}
                 </p>
+
 
                 <form method="POST"
                       action="/update-status/{{ loop.index0 }}">
@@ -174,8 +265,6 @@
 
             </div>
 
-            <hr>
-
         {% endfor %}
 
     {% else %}
@@ -184,13 +273,14 @@
 
     {% endif %}
 
-    <hr>
 
     <footer>
+
         <p>
             Running Commit:
             <strong>{{ commit_id }}</strong>
         </p>
+
     </footer>
 
 </body>
