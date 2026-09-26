@@ -18,8 +18,7 @@ def client():
 def test_health(client):
     response = client.get("/health")
 
-    # Intentional failure for CI/CD demonstration
-    assert response.status_code == 500
+    assert response.status_code == 200
     assert response.get_json() == {"status": "ok"}
 
 
