@@ -3,283 +3,897 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>FixIt Campus</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        /* ---------- HEADER ---------- */
+
+        .header {
+            background: linear-gradient(135deg, #164e63, #1d4ed8);
+            color: white;
+            padding: 28px 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-content {
+            max-width: 1100px;
             margin: auto;
-            padding: 20px;
-            background: #f4f6f8;
         }
 
-        h1 {
-            color: #1f4e79;
-            margin-bottom: 5px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        h2 {
-            color: #333;
-            margin-top: 30px;
+        .brand-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
         }
 
-        form {
+        .brand h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 10px 0 0 58px;
+            color: #dbeafe;
+            font-size: 15px;
+        }
+
+        /* ---------- MAIN ---------- */
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 50px;
+        }
+
+        .hero {
             background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        }
+
+        .hero h2 {
+            margin: 0 0 8px;
+            font-size: 25px;
+            color: #111827;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* ---------- SECTION ---------- */
+
+        .section-title {
+            margin: 32px 0 14px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 21px;
+            color: #111827;
+        }
+
+        .section-title p {
+            margin: 5px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* ---------- FORMS ---------- */
+
+        .form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
         }
 
         label {
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
         }
 
         input,
         select,
         textarea {
-            padding: 8px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            background: #fff;
+            color: #111827;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
         }
 
         textarea {
-            width: 90%;
-            height: 80px;
+            min-height: 110px;
             resize: vertical;
         }
 
+        .button-row {
+            margin-top: 20px;
+        }
+
         button {
-            padding: 9px 15px;
             border: none;
-            border-radius: 4px;
-            background: #1f4e79;
+            border-radius: 9px;
+            padding: 11px 18px;
+            background: #2563eb;
             color: white;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         button:hover {
-            background: #163a5c;
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        /* ---------- FILTER ---------- */
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        /* ---------- PROBLEM CARDS ---------- */
+
+        .problem-list {
+            display: grid;
+            gap: 16px;
         }
 
         .problem-card {
             background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
         }
 
-        .problem-card h3 {
-            color: #1f4e79;
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
         }
+
+        .problem-header h3 {
+            margin: 0;
+            font-size: 19px;
+            color: #111827;
+        }
+
+        .problem-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .category-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .priority-low {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .priority-medium {
+            background: #fffbeb;
+            color: #b45309;
+        }
+
+        .priority-high {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .status-reported {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .status-progress {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .status-resolved {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .problem-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .info-label {
+            display: block;
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+
+        .status-section {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 17px;
+            margin-top: 17px;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .status-form select {
+            max-width: 210px;
+        }
+
+        /* ---------- EMPTY STATE ---------- */
+
+        .empty-state {
+            background: white;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 6px;
+            color: #374151;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* ---------- FOOTER ---------- */
 
         footer {
-            margin-top: 30px;
-            padding: 15px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 25px 20px 35px;
             text-align: center;
-            color: #666;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .commit {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+
+        @media (max-width: 800px) {
+            .form-grid,
+            .problem-info {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-header {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 14px 40px;
+            }
+
+            .header {
+                padding: 22px 14px;
+            }
+
+            .header p {
+                margin-left: 0;
+            }
+
+            .brand h1 {
+                font-size: 23px;
+            }
+
+            .form-card,
+            .hero,
+            .problem-card {
+                padding: 18px;
+            }
+
+            .status-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .status-form select {
+                max-width: none;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <h1>FixIt Campus</h1>
-    <p>Campus Problem Reporting System</p>
+    <!-- HEADER -->
 
-    <h2>Report a Problem</h2>
+    <header class="header">
 
-    <form method="POST" action="/add">
+        <div class="header-content">
 
-        <label>Problem Title:</label>
-        <input type="text" name="title" required>
-        <br><br>
+            <div class="brand">
 
-        <label>Category:</label>
-        <select name="category" required>
-            <option value="">Select Category</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Equipment">Equipment</option>
-            <option value="Network">Network</option>
-            <option value="Classroom">Classroom</option>
-        </select>
-        <br><br>
+                <div class="brand-icon">🔧</div>
 
-        <label>Location:</label>
-        <input type="text" name="location" required>
-        <br><br>
+                <h1>FixIt Campus</h1>
 
-        <label>Description:</label>
-        <br>
-        <textarea name="description" required></textarea>
-        <br><br>
+            </div>
 
-        <label>Priority:</label>
-        <select name="priority" required>
-            <option value="">Select Priority</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-        </select>
-        <br><br>
+            <p>
+                Campus Problem Reporting & Tracking System
+            </p>
 
-        <button type="submit">Report Problem</button>
+        </div>
 
-    </form>
+    </header>
 
 
-    <h2>Search and Filter Problems</h2>
+    <main class="container">
 
-    <form method="GET" action="/">
+        <!-- HERO -->
 
-        <label>Search:</label>
-        <input
-            type="text"
-            name="search"
-            placeholder="Search problems..."
-            value="{{ search }}"
-        >
+        <section class="hero">
 
-        <label>Category:</label>
-        <select name="category">
+            <h2>Make Your Campus Better</h2>
 
-            <option value="">All Categories</option>
+            <p>
+                Report maintenance, equipment, network, and classroom
+                problems so they can be tracked and resolved efficiently.
+            </p>
 
-            <option value="Maintenance"
-                {% if selected_category == "Maintenance" %}selected{% endif %}>
-                Maintenance
-            </option>
-
-            <option value="Equipment"
-                {% if selected_category == "Equipment" %}selected{% endif %}>
-                Equipment
-            </option>
-
-            <option value="Network"
-                {% if selected_category == "Network" %}selected{% endif %}>
-                Network
-            </option>
-
-            <option value="Classroom"
-                {% if selected_category == "Classroom" %}selected{% endif %}>
-                Classroom
-            </option>
-
-        </select>
+        </section>
 
 
-        <label>Status:</label>
+        <!-- REPORT PROBLEM -->
 
-        <select name="status">
+        <div class="section-title">
 
-            <option value="">All Statuses</option>
+            <h2>Report a Problem</h2>
 
-            <option value="Reported"
-                {% if selected_status == "Reported" %}selected{% endif %}>
-                Reported
-            </option>
+            <p>
+                Provide the details of the issue you want to report.
+            </p>
 
-            <option value="In Progress"
-                {% if selected_status == "In Progress" %}selected{% endif %}>
-                In Progress
-            </option>
-
-            <option value="Resolved"
-                {% if selected_status == "Resolved" %}selected{% endif %}>
-                Resolved
-            </option>
-
-        </select>
-
-        <button type="submit">Apply Filter</button>
-
-    </form>
+        </div>
 
 
-    <h2>Reported Problems</h2>
+        <form class="form-card" method="POST" action="/add">
 
-    {% if problems %}
+            <div class="form-grid">
 
-        {% for problem in problems %}
+                <div class="form-group">
 
-            <div class="problem-card">
+                    <label for="title">Problem Title</label>
 
-                <h3>{{ problem.title }}</h3>
+                    <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        placeholder="e.g. Broken classroom fan"
+                        required
+                    >
 
-                <p>
-                    <strong>Category:</strong>
-                    {{ problem.category }}
-                </p>
-
-                <p>
-                    <strong>Location:</strong>
-                    {{ problem.location }}
-                </p>
-
-                <p>
-                    <strong>Description:</strong>
-                    {{ problem.description }}
-                </p>
-
-                <p>
-                    <strong>Priority:</strong>
-                    {{ problem.priority }}
-                </p>
-
-                <p>
-                    <strong>Current Status:</strong>
-                    {{ problem.status }}
-                </p>
+                </div>
 
 
-                <form method="POST"
-                      action="/update-status/{{ loop.index0 }}">
+                <div class="form-group">
 
-                    <label>Update Status:</label>
+                    <label for="category">Category</label>
 
-                    <select name="status">
+                    <select id="category" name="category" required>
+
+                        <option value="">Select Category</option>
+
+                        <option value="Maintenance">
+                            Maintenance
+                        </option>
+
+                        <option value="Equipment">
+                            Equipment
+                        </option>
+
+                        <option value="Network">
+                            Network
+                        </option>
+
+                        <option value="Classroom">
+                            Classroom
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="location">Location</label>
+
+                    <input
+                        id="location"
+                        type="text"
+                        name="location"
+                        placeholder="e.g. Block A, Room 204"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="priority">Priority</label>
+
+                    <select id="priority" name="priority" required>
+
+                        <option value="">Select Priority</option>
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="description">Description</label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Describe the problem..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button type="submit">
+                    + Report Problem
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- SEARCH AND FILTER -->
+
+        <div class="section-title">
+
+            <h2>Find Problems</h2>
+
+            <p>
+                Search and filter reported campus problems.
+            </p>
+
+        </div>
+
+
+        <form class="form-card" method="GET" action="/">
+
+            <div class="filter-grid">
+
+                <div class="form-group">
+
+                    <label for="search">Search</label>
+
+                    <input
+                        id="search"
+                        type="text"
+                        name="search"
+                        placeholder="Search by title, description or location..."
+                        value="{{ search }}"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="filter-category">Category</label>
+
+                    <select id="filter-category" name="category">
+
+                        <option value="">
+                            All Categories
+                        </option>
+
+                        <option value="Maintenance"
+                            {% if selected_category == "Maintenance" %}selected{% endif %}>
+                            Maintenance
+                        </option>
+
+                        <option value="Equipment"
+                            {% if selected_category == "Equipment" %}selected{% endif %}>
+                            Equipment
+                        </option>
+
+                        <option value="Network"
+                            {% if selected_category == "Network" %}selected{% endif %}>
+                            Network
+                        </option>
+
+                        <option value="Classroom"
+                            {% if selected_category == "Classroom" %}selected{% endif %}>
+                            Classroom
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="filter-status">Status</label>
+
+                    <select id="filter-status" name="status">
+
+                        <option value="">
+                            All Statuses
+                        </option>
 
                         <option value="Reported"
-                            {% if problem.status == "Reported" %}selected{% endif %}>
+                            {% if selected_status == "Reported" %}selected{% endif %}>
                             Reported
                         </option>
 
                         <option value="In Progress"
-                            {% if problem.status == "In Progress" %}selected{% endif %}>
+                            {% if selected_status == "In Progress" %}selected{% endif %}>
                             In Progress
                         </option>
 
                         <option value="Resolved"
-                            {% if problem.status == "Resolved" %}selected{% endif %}>
+                            {% if selected_status == "Resolved" %}selected{% endif %}>
                             Resolved
                         </option>
 
                     </select>
 
-                    <button type="submit">Update Status</button>
+                </div>
 
-                </form>
+
+                <button type="submit">
+                    Apply Filters
+                </button>
 
             </div>
 
-        {% endfor %}
+        </form>
 
-    {% else %}
 
-        <p>No problems found.</p>
+        <!-- REPORTED PROBLEMS -->
 
-    {% endif %}
+        <div class="section-title">
 
+            <h2>Reported Problems</h2>
+
+            <p>
+                View and update the current status of campus issues.
+            </p>
+
+        </div>
+
+
+        {% if problems %}
+
+            <div class="problem-list">
+
+                {% for problem in problems %}
+
+                    <div class="problem-card">
+
+                        <div class="problem-header">
+
+                            <div>
+
+                                <h3>
+                                    {{ problem.title }}
+                                </h3>
+
+                                <div class="problem-meta">
+
+                                    <span class="badge category-badge">
+                                        {{ problem.category }}
+                                    </span>
+
+                                    {% if problem.priority == "High" %}
+
+                                        <span class="badge priority-high">
+                                            High Priority
+                                        </span>
+
+                                    {% elif problem.priority == "Medium" %}
+
+                                        <span class="badge priority-medium">
+                                            Medium Priority
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge priority-low">
+                                            Low Priority
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            {% if problem.status == "Reported" %}
+
+                                <span class="badge status-reported">
+                                    Reported
+                                </span>
+
+                            {% elif problem.status == "In Progress" %}
+
+                                <span class="badge status-progress">
+                                    In Progress
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge status-resolved">
+                                    Resolved
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="problem-info">
+
+                            <div class="info-box">
+
+                                <span class="info-label">
+                                    Location
+                                </span>
+
+                                <span class="info-value">
+                                    📍 {{ problem.location }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <span class="info-label">
+                                    Priority
+                                </span>
+
+                                <span class="info-value">
+                                    {{ problem.priority }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <p class="description">
+                            {{ problem.description }}
+                        </p>
+
+
+                        <div class="status-section">
+
+                            <label>
+                                Update Problem Status
+                            </label>
+
+                            <form
+                                class="status-form"
+                                method="POST"
+                                action="/update-status/{{ loop.index0 }}"
+                            >
+
+                                <select name="status">
+
+                                    <option value="Reported"
+                                        {% if problem.status == "Reported" %}selected{% endif %}>
+                                        Reported
+                                    </option>
+
+                                    <option value="In Progress"
+                                        {% if problem.status == "In Progress" %}selected{% endif %}>
+                                        In Progress
+                                    </option>
+
+                                    <option value="Resolved"
+                                        {% if problem.status == "Resolved" %}selected{% endif %}>
+                                        Resolved
+                                    </option>
+
+                                </select>
+
+                                <button type="submit">
+                                    Update Status
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <h3>
+                    No problems found
+                </h3>
+
+                <p>
+                    Try changing your filters or report a new campus problem.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <!-- FOOTER -->
 
     <footer>
 
-        <p>
-            Running Commit:
-            <strong>{{ commit_id }}</strong>
-        </p>
+        <div>
+            FixIt Campus · Campus Problem Reporting System
+        </div>
+
+        <div class="commit">
+            Running Commit: {{ commit_id }}
+        </div>
 
     </footer>
 
